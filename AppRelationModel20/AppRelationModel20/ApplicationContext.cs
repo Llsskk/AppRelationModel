@@ -1,19 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppRelationModel20
+
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
+        public ApplicationContext()
+        {
+            Database.EnsureCreated();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=relationsdb20;Trusted_Connection=True;");
+            optionsBuilder.UseNpgsql("Host=localhost;" +
+            "Port=5433;" +
+            "Database=testdb;" +
+            "Username=postgres;" +
+            "Password=rinh2021");
         }
     }
 }
+
